@@ -1,0 +1,26 @@
+
+.question{
+    text-align: center;
+}
+
+.option{
+    border: 1px solid black;
+    width: 100px;
+    margin-left: 45%
+}
+
+.option:hover{
+    background-color:yellow;
+}
+
+.selected{
+    background-color: grey !important;
+}
+
+.right{
+    background-color: green;
+}
+
+.wrong{
+    background-color: red;
+}
