@@ -1,12 +1,16 @@
 function verifyUser(request, response, next) {
-    const{apiKey} = request.query //destructuring: extracting field from object
-    console.log(apiKey)
+    
+    const loggedIn = request.cookies.loggedIn
 
-    if(apiKey == null) {
-        return response.status(401).json({error: "Invalid API Key"})
+    console.log(loggedIn, typeof loggedIn)
+    if (loggedIn || loggedIn.length > 0){
+        next()
     }
 
-    next()
+    else{
+        return response.status(401).json({error: "User not logged in"})
+    }
+
 }
 
 module.exports = {  //brckets can hold multiple exports items

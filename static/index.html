@@ -4,28 +4,28 @@
 </head>
 
 <body>
-  
-  <div class="question">
-    <h1 id="title"></h1>
-    <ol type="a">
-        <li class="option" id="A"></li>
-        <li class="option" id="B"></li>
-        <li class="option" id="C"></li>
-        <li class="option" id="D"></li>
-    </ol>
+  <input id ="username" type="text">
+  <p><button id="login">Login</button></p>
+  <p><button id="logout">Logout</button></p>
 
-    <button id="previous">Previous Question</button>
-    <button id="next">Next Question</button>
-    
-    <p><button id="createQuestion">Create Question</button></p>
-    <p><button id="createCategory">Create Category</button></p>
+  <div id="quiz-container">
+    <div class="question">
+      <h1 id="title"></h1>
+      <ol type="a">
+          <li class="option" id="A"></li>
+          <li class="option" id="B"></li>
+          <li class="option" id="C"></li>
+          <li class="option" id="D"></li>
+      </ol>
 
-    <p><button id="submit">Submit</button></p>
+      <button id="previous">Previous Question</button>
+      <button id="next">Next Question</button>
+      
+      <p><button id="createQuestion">Create Question</button></p>
+      <p><button id="createCategory">Create Category</button></p>
 
-    <input id ="username" type="text">
-    <p><button id="createUser">Create User</button></p>
-    
-    <h2 id="grade"></h2>
+      <p><button id="submit">Submit</button></p>
+      <h2 id="grade"></h2>
   </div>
 
   <script src=main.js></script>

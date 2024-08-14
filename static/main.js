@@ -12,32 +12,56 @@ let alreadySelected = false
 
 Array.from(options).forEach((option) => option.addEventListener("click", handleClick))
 
-getQuestions()
+document.getElementById("quiz-container").style.display="none"
 document.getElementById("next").addEventListener("click", (event) => changeQuestion(1))
 document.getElementById("previous").addEventListener("click", (event) => changeQuestion(-1))
 document.getElementById("submit").addEventListener("click", (event) => submitQuiz())
 document.getElementById("createQuestion").addEventListener("click", (event) => createQuestion())
 document.getElementById("createCategory").addEventListener("click", (event) => createCategory())
-document.getElementById("createUser").addEventListener("click", (event) => createUser())
+document.getElementById("login").addEventListener("click", (event) => login())
+document.getElementById("logout").addEventListener("click", (event) => logout())
 
-async function createUser(){
+//document.getElementById("logout").addEventListener("click", (event) => logout())
 
+
+async function login(){    
     const username = document.getElementById("username").value
-    const response = await fetch("/api/users?apiKey=test", {
+    const response = await fetch("/api/login", { //  /login?
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({username}) 
     })
 
     if( !response.ok ) {
-        console.error( "Failed to update username" );
+        console.error( "Error logging in user" );
         return;
-    } 
+    }
+    
+    else{
+        document.getElementById("quiz-container").style.display="block"
+        getQuestions()
+    }
 }
 
+async function logout(){    
+    const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+    })
+
+    if( !response.ok ) {
+        console.error( "Error logging out user" );
+        return;
+    }
+    
+    else{
+        document.getElementById("quiz-container").style.display="none"
+        quizQs = []
+    }
+}
 
 async function getQuestions() {
-    let response = await fetch( "/api/questions?apiKey=test" ); //without domain name, assumes domain is the same as the main.js
+    let response = await fetch( "/api/questions" ); //without domain name, assumes domain is the same as the main.js
 
     if( !response.ok ) {
         console.error( "Failed to retrieve Quiz Questions from API" );
@@ -71,7 +95,7 @@ async function createCategory(){
         tags: ["red", "blue", "yellow"]
     }
 
-    const response = await fetch("/api/categories?apiKey=test", {
+    const response = await fetch("/api/categories", {
         method: "POST",
         headers: {"Content-Type": "application/json"}, //tells server that data is JSON
         body: JSON.stringify(newCategory)             //conversion to string format that can be sent to other networks
@@ -91,7 +115,7 @@ async function createQuestion(){
         correct: "D"
     }
 
-    const response = await fetch("/api/questions?apiKey=test", {
+    const response = await fetch("/api/questions", {
         method: "POST",
         headers: {"Content-Type": "application/json"}, //tells server that data is JSON
         body: JSON.stringify(newQuestion)             //conversion to string format that can be sent to other networks
